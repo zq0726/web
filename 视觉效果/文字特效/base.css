@@ -1,0 +1,19 @@
+main {
+  width: 100%;
+  font: 180%/1.5 Baskerville, Palatino, serif;
+}
+main > div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main > div > h5 {
+  width: 229px;
+}
+main > div > p {
+  padding: 18px 28px;
+  text-align: justify; 
+  hyphens: auto;
+
+}

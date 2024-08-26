@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>按钮</title>
+    <style>
+      .button {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #f4511e;
+        border: none;
+        color: #ffffff;
+        text-align: center;
+        font-size: 28px;
+        padding: 20px;
+        width: 200px;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+
+      .button:hover span {
+        padding-right: 25px;
+      }
+
+      span::after {
+        content: "»";
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -25px;
+        transition: 0.5s;
+      }
+
+      .button:hover span::after {
+        opacity: 1;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>按钮动画</h2>
+
+    <button class="button" style="vertical-align: middle">
+      <span>Hover</span>
+    </button>
+  </body>
+</html>

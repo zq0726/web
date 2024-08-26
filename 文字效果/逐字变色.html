@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字逐字变色</title>
+    <style>
+      #animatedText {
+        font-size: 24px;
+        color: black; /* 原始颜色 */
+        transition: color 0.5s; /* 平滑过渡效果 */
+      }
+
+      .highlight {
+        color: red; /* 变色后的颜色 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="animatedText">
+      北国风光，千里冰封，万里雪飘。<br />
+      望长城内外，惟余莽莽；大河上下，顿失滔滔。
+      山舞银蛇，原驰蜡象，欲与天公试比高。<br />
+      须晴日，看红装素裹，分外妖娆。<br />
+      江山如此多娇，引无数英雄竞折腰。<br />
+      惜秦皇汉武，略输文采；唐宗宋祖，稍逊风骚。<br />
+      一代天骄，成吉思汗，只识弯弓射大雕。<br />
+      俱往矣，数风流人物，还看今朝。
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const text = document.getElementById("animatedText").textContent;
+        let newText = "";
+
+        for (let i = 0; i < text.length; i++) {
+          // 为每个字符创建一个span元素，并添加到div中
+          newText += `<span class="char">${text[i]}</span>`;
+        }
+
+        // 替换原来的文本
+        document.getElementById("animatedText").innerHTML = newText;
+
+        // 定义一个函数来逐字变色
+        function animateText() {
+          const chars = document.querySelectorAll("#animatedText .char");
+          let index = 0;
+
+          function frame() {
+            if (index < chars.length) {
+              chars[index].classList.add("highlight"); // 添加变色类
+              index++;
+              setTimeout(frame, 100); // 每隔100毫秒继续下一个字符
+            }
+          }
+
+          frame(); // 开始动画
+        }
+
+        // 调用函数
+        animateText();
+      });
+    </script>
+  </body>
+</html>

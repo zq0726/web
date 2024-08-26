@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字渐变</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        font-size: 50px;
+        font-weight: bold;
+        width: 100vw;
+        height: 100vh;
+        background-image: linear-gradient(to right, blue, red, black);
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: transparent;
+        margin-top: -50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">你知道的，我是个好人</div>
+  </body>
+</html>

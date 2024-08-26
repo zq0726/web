@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>镂空文字</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+      }
+
+      .box1 {
+        font-size: 50px;
+        font-weight: bold;
+        color: transparent;
+        -webkit-text-stroke: 1px blue;
+      }
+
+      .box2 {
+        font-size: 50px;
+        font-weight: bold;
+        color: black;
+        text-shadow: 1px 1px blue, -1px -1px blue, 1px -1px blue, -1px 1px blue;
+      }
+
+      .box3 {
+        font-size: 50px;
+        font-weight: bold;
+        color: black;
+        text-shadow: 0 0 5px #10f701, 0 0 10px #727272;
+      }
+    </style>
+  </head>
+  <body>
+    <dl>
+      <dt>方式一：</dt>
+      <dd class="box1">你知道的，我是个好人</dd>
+    </dl>
+    <dl>
+      <dt>方式二：</dt>
+      <dd class="box2">你知道的，我是个好人</dd>
+    </dl>
+    <dl>
+      <dt>方式三：</dt>
+      <dd class="box3">你知道的，我是个好人</dd>
+    </dl>
+  </body>
+</html>

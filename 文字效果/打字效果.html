@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>打字效果</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-size: 40px;
+        background-color: black;
+        color: white;
+        margin-top: -100px;
+      }
+
+      #switch-box {
+        color: #0cc4fb;
+      }
+      #switch-box::after {
+        content: "I";
+        font-style: 18px;
+        display: inline-block;
+        vertical-align: top;
+        font-weight: lighter;
+        animation: flicker 0.5s infinite;
+      }
+
+      @keyframes flicker {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    我要成为 <span id="switch-box"></span> 高手
+
+    <script>
+      const stringArray = ["C++", "Go", "Java", "Js", "Php"];
+      let switch_box = document.getElementById("switch-box");
+
+      //定义数组索引
+      let index = 0;
+      let delay = 100;
+      let charIndex = 0;
+
+      //删除标志
+      let isDelete = false;
+      let defaultDelay = 300;
+      let waitDelay = 1000;
+
+      let changeText = () => {
+        console.log("有点意思");
+        switch_box.textContent = stringArray[index].substring(0, charIndex);
+        if (!isDelete) {
+          delay = defaultDelay;
+          charIndex++;
+
+          if (charIndex > stringArray[index].length) {
+            isDelete = true;
+            delay = waitDelay;
+          }
+        } else {
+          delay = defaultDelay;
+          charIndex--;
+          if (charIndex < 1) {
+            isDelete = false;
+            index++;
+            if (index >= stringArray.length) {
+              index = 0;
+            }
+          }
+        }
+
+        setTimeout(changeText, delay);
+      };
+      changeText();
+    </script>
+  </body>
+</html>

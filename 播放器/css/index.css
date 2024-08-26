@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  /* background-color: black; */
+  background-image: url("../../static/bg1.jpeg");
+  text-align: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body audio {
+  margin: 30px auto;
+  height: 50px;
+  width: 40%;
+  color: #666;
+}
+
+.container {
+  min-width: 40%;
+  height: calc(100vh - 180px);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+ul li {
+  height: 30px;
+  line-height: 30px;
+  list-style: none;
+  /* color: #666; */
+  color: #2b2b2b;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+ul li.active {
+  color: white;
+  transform: scale(1.2);
+}
+
+ul li:hover {
+  color: skyblue;
+}

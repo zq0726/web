@@ -1,0 +1,43 @@
+// 定义颜色映射
+$light-colors: (
+  bgColor: white,
+  color: black,
+);
+
+$dark-colors: (
+  bgColor: black,
+  color: white,
+);
+
+// 将颜色映射放入主题映射中
+$theme: (
+  light: $light-colors,
+  dark: $dark-colors,
+);
+
+@mixin themes {
+  @each $theme-name, $theme-colors in $theme {
+    [data-theme="#{$theme-name}"] & {
+      @content;
+    }
+  }
+}
+
+@function themed($theme-name, $key) {
+  @return map-get(map-get($theme, $theme-name), $key);
+}
+
+@mixin bgColor($theme-name, $key: "bgColor") {
+  background-color: themed($theme-name, $key);
+}
+
+@mixin textColor($theme-name, $key: "color") {
+  color: themed($theme-name, $key);
+}
+
+main {
+  @include themes {
+    @include bgColor("light");
+    @include textColor("light");
+  }
+}

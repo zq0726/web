@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>毛玻璃</title>
+    <link rel="stylesheet" href="../../static/css/base.css" />
+    <style>
+      body {
+        background-image: url("../../static/bg1.jpeg");
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .card {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px) saturate(180%);
+        /* -webkit-backdrop-filter: blur(10px) saturate(180%); */
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        width: 50vw;
+        height: 50vh;
+      }
+
+      .card h1 {
+        font-size: 60px;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .card p {
+        color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Frosted Glass Effect</h1>
+      <p>
+        This is a card with a frosted glass effect using CSS backdrop-filter.
+      </p>
+    </div>
+  </body>
+</html>

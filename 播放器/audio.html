@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>音频可视化</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <audio src="../static/music.mp3" controls></audio>
+    <script src="../hehe.js"></script>
+  </body>
+  <script>
+    const audio = document.querySelector("audio");
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    function generateGradient(baseColor, count) {
+      let hsl = baseColor.match(
+        /hsla?\((\d+),\s*(\d+%),\s*(\d+%),\s*([\d.]+)\)/
+      );
+      let h = parseInt(hsl[1], 10); // Hue
+      let s = parseInt(hsl[2], 10); // Saturation
+      let l = parseInt(hsl[3], 10); // Lightness
+
+      let stepH = 360 / count;
+      let stepL = 100 / (count + 1);
+
+      let gradientColors = [];
+      for (let i = 0; i < count; i++) {
+        gradientColors.push(`hsl(${h + i * stepH}, ${s}%, ${l}%)`);
+      }
+
+      return gradientColors;
+    }
+
+    // 使用示例
+    let baseColor = "hsla(240, 100%, 50%, 1)"; // 蓝色
+
+    let gradient = generateGradient(baseColor, 100); // 200种颜色
+    // 初始化画布
+    canvas.width = window.innerWidth * devicePixelRatio;
+    canvas.height = 300;
+
+    // 绑定播放事件
+    let isInit = false;
+    let analyser, data;
+    audio.onplay = () => {
+      // console.log("开始播放");
+      if (isInit) return;
+      // 创建音频上下文
+      const audioCtx = new AudioContext();
+      // 创建音频源
+      const source = audioCtx.createMediaElementSource(audio);
+      // 创建分析器节点
+      analyser = audioCtx.createAnalyser();
+      // 设置窗口大小，窗口越大，分析结果越细腻
+      analyser.fftSize = 512;
+      data = new Uint8Array(analyser.frequencyBinCount);
+      // 将源连接到分析器节点
+      source.connect(analyser);
+      // 将分析器节点连接到输出设备
+      analyser.connect(audioCtx.destination);
+      isInit = true;
+    };
+
+    function drawRoundedRect(x, y, width, height, radius) {
+      if (height === 0) return;
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(
+        x + width,
+        y + height,
+        x + width - radius,
+        y + height
+      );
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.fill();
+    }
+
+    // 绘制内容
+    function draw() {
+      requestAnimationFrame(draw);
+      // 清空画布
+      const { width, height } = canvas;
+      ctx.clearRect(0, 0, width, height);
+      if (!isInit) return;
+      // 把分析器节点的数据更新到data中
+      analyser.getByteFrequencyData(data);
+      const len = data.length;
+      const barWidth = width / len;
+      // 每一个方块的高度
+      const blockHeight = 8;
+      for (let index = 0; index < data.length; index++) {
+        const _data = data[index];
+        const barHeight = (_data / 255) * height;
+        const x = index * barWidth;
+        const y = height - barHeight;
+        const blockCount = Math.round(barHeight / 10);
+        for (let number = 0; number < blockCount; number++) {
+          ctx.fillStyle = gradient[number];
+          const y = height - blockHeight * number;
+          drawRoundedRect(x, y, barWidth - 1, blockHeight - 1, 2);
+        }
+      }
+    }
+    draw();
+  </script>
+</html>
